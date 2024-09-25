@@ -6,17 +6,10 @@ from src.best_move_evaluation.evaluate import best_move
 app = Flask(__name__)
 
 def validate_turn_input(turn):
-    if turn.lower() not in ['w', 'b']:
-        raise ValueError("Invalid input for turn. Please enter 'w' for white or 'b' for black.")
-    return turn.lower()
+    return 'w' if turn == 'on' else 'b'
 
 def validate_castling_input(castling):
-    if castling.lower() not in ['y', 'n']:
-        raise ValueError("Invalid input for castling. Please enter 'y' for yes or 'n' for no.")
-    elif castling.lower() == 'y':
-        return True
-    else:
-        return False
+    return castling == 'y'
 
 @app.route('/')
 def index():
@@ -25,17 +18,21 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     image_path = request.form['image_path']
-    turn = validate_turn_input(request.form['turn'])
-    white_king_castling = validate_castling_input(request.form['white_king_castling'])
-    white_queen_castling = validate_castling_input(request.form['white_queen_castling'])
-    black_king_castling = validate_castling_input(request.form['black_king_castling'])
-    black_queen_castling = validate_castling_input(request.form['black_queen_castling'])
+
+    # Handle turn input from switch
+    turn = 'w' if 'turn' in request.form else 'b'
+
+    # Handle castling rights from switches (checkboxes)
+    white_king_castling = 'white_king_castling' in request.form
+    white_queen_castling = 'white_queen_castling' in request.form
+    black_king_castling = 'black_king_castling' in request.form
+    black_queen_castling = 'black_queen_castling' in request.form
 
     # Process image and generate FEN
     board = basic_recognition(image_path)
     fen = generate_fen(board)
 
-    # Evaluate best move
+    # Evaluate the best move
     best_move_result = best_move(fen, turn, white_king_castling, white_queen_castling, black_king_castling, black_queen_castling)
 
     return f"Best move: {best_move_result}"

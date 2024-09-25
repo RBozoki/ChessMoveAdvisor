@@ -4,29 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Move Advisor</title>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload Image and Get Best Move</h1>
-    <form action="/process" method="POST">
-        <label for="image_path">Image Path:</label>
-        <input type="text" id="image_path" name="image_path"><br><br>
+<h1>Chess Move Advisor</h1>
+<form action="/process" method="POST">
+    <label for="image_path">Image Path:</label>
+    <input type="text" id="image_path" name="image_path" required><br><br>
 
-        <label for="turn">Which turn? (w/b):</label>
-        <input type="text" id="turn" name="turn"><br><br>
+    <!-- Turn switch -->
+    <label for="turn">Turn: White</label>
+    <label class="switch">
+        <input type="checkbox" id="turn" name="turn" value="w">
+        <span class="slider round"></span>
+    </label>
+    <label for="turn">Black</label><br><br>
 
-        <label for="white_king_castling">Can white king castle? (y/n):</label>
-        <input type="text" id="white_king_castling" name="white_king_castling"><br><br>
+    <!-- White King Castling switch -->
+    <label for="white_king_castling">White King Castling</label>
+    <label class="switch">
+        <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
+        <span class="slider round"></span>
+    </label><br><br>
 
-        <label for="white_queen_castling">Can white queen castle? (y/n):</label>
-        <input type="text" id="white_queen_castling" name="white_queen_castling"><br><br>
+    <!-- White Queen Castling switch -->
+    <label for="white_queen_castling">White Queen Castling</label>
+    <label class="switch">
+        <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
+        <span class="slider round"></span>
+    </label><br><br>
 
-        <label for="black_king_castling">Can black king castle? (y/n):</label>
-        <input type="text" id="black_king_castling" name="black_king_castling"><br><br>
+    <!-- Black King Castling switch -->
+    <label for="black_king_castling">Black King Castling</label>
+    <label class="switch">
+        <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
+        <span class="slider round"></span>
+    </label><br><br>
 
-        <label for="black_queen_castling">Can black queen castle? (y/n):</label>
-        <input type="text" id="black_queen_castling" name="black_queen_castling"><br><br>
+    <!-- Black Queen Castling switch -->
+    <label for="black_queen_castling">Black Queen Castling</label>
+    <label class="switch">
+        <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
+        <span class="slider round"></span>
+    </label><br><br>
 
-        <input type="submit" value="Submit">
-    </form>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
