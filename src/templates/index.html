@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Move Advisor</title>
+</head>
+<body>
+    <h1>Upload Image and Get Best Move</h1>
+    <form action="/process" method="POST">
+        <label for="image_path">Image Path:</label>
+        <input type="text" id="image_path" name="image_path"><br><br>
+
+        <label for="turn">Which turn? (w/b):</label>
+        <input type="text" id="turn" name="turn"><br><br>
+
+        <label for="white_king_castling">Can white king castle? (y/n):</label>
+        <input type="text" id="white_king_castling" name="white_king_castling"><br><br>
+
+        <label for="white_queen_castling">Can white queen castle? (y/n):</label>
+        <input type="text" id="white_queen_castling" name="white_queen_castling"><br><br>
+
+        <label for="black_king_castling">Can black king castle? (y/n):</label>
+        <input type="text" id="black_king_castling" name="black_king_castling"><br><br>
+
+        <label for="black_queen_castling">Can black queen castle? (y/n):</label>
+        <input type="text" id="black_queen_castling" name="black_queen_castling"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
