@@ -1,15 +1,21 @@
-from flask import Flask, render_template, request
+import os
+from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
 from src.basic_recognition_model.board_operations import generate_fen
 from src.basic_recognition_model.main import basic_recognition
 from src.best_move_evaluation.evaluate import best_move
 
 app = Flask(__name__)
 
-def validate_turn_input(turn):
-    return 'w' if turn == 'on' else 'b'
+# Dossier pour stocker les images téléchargées temporairement
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-def validate_castling_input(castling):
-    return castling == 'y'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Fonction pour vérifier les extensions de fichier
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -17,25 +23,42 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    image_path = request.form['image_path']
+    # Vérifier si le fichier fait partie de la requête
+    if 'image' not in request.files:
+        return "Pas de fichier d'image fourni", 400
 
-    # Handle turn input from switch
-    turn = 'w' if 'turn' in request.form else 'b'
+    file = request.files['image']
 
-    # Handle castling rights from switches (checkboxes)
-    white_king_castling = 'white_king_castling' in request.form
-    white_queen_castling = 'white_queen_castling' in request.form
-    black_king_castling = 'black_king_castling' in request.form
-    black_queen_castling = 'black_queen_castling' in request.form
+    # Si aucun fichier n'est sélectionné
+    if file.filename == '':
+        return "Aucun fichier sélectionné", 400
 
-    # Process image and generate FEN
-    board = basic_recognition(image_path)
-    fen = generate_fen(board)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-    # Evaluate the best move
-    best_move_result = best_move(fen, turn, white_king_castling, white_queen_castling, black_king_castling, black_queen_castling)
+        # Sauvegarder l'image dans le dossier temporaire
+        file.save(file_path)
 
-    return f"Best move: {best_move_result}"
+        # Obtenir les autres paramètres du formulaire
+        turn = 'b' if 'turn' in request.form else 'w'
+        white_king_castling = 'white_king_castling' in request.form
+        white_queen_castling = 'white_queen_castling' in request.form
+        black_king_castling = 'black_king_castling' in request.form
+        black_queen_castling = 'black_queen_castling' in request.form
+
+        # Processer l'image téléchargée pour reconnaître le plateau
+        board = basic_recognition(file_path)
+        fen = generate_fen(board)
+
+        # Évaluer le meilleur coup
+        best_move_result = best_move(fen, turn, white_king_castling, white_queen_castling, black_king_castling, black_queen_castling)
+
+        return f"Best move: {best_move_result}"
+
+    return "Fichier non supporté", 400
 
 if __name__ == '__main__':
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True)
