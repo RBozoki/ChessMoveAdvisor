@@ -138,3 +138,95 @@ def test_divide_image_into_vectors_invalid_size():
     # Tester si une assertion est levée pour une image de taille incorrecte
     with pytest.raises(AssertionError, match="L'image doit être de 800x800 pixels"):
         divide_image_into_vectors(buffer)
+
+
+# tests_knn_model
+
+from sklearn.neighbors import KNeighborsClassifier
+from src.basic_recognition_model.knn_model import train_knn, predict_with_threshold
+
+def test_train_knn():
+    # Simuler des données pour entraîner le modèle
+    pieces = np.array([
+        [0, 0, 0, 0],  # Empty
+        [1, 1, 1, 1],  # Piece 1
+        [2, 2, 2, 2],  # Piece 2
+        [3, 3, 3, 3]   # Piece 3
+    ])
+    labels = ['Empty', 'Piece1', 'Piece2', 'Piece3']
+
+    # Entraîner le KNN
+    knn_model = train_knn(pieces, labels)
+
+    # Vérifier que le modèle a bien appris les étiquettes
+    assert isinstance(knn_model, KNeighborsClassifier)
+    assert knn_model.classes_.tolist() == labels
+
+def test_predict_with_threshold():
+    # Simuler des données pour entraîner le modèle
+    pieces = np.array([
+        [0, 0, 0, 0],  # Empty
+        [1, 1, 1, 1],  # Piece 1
+        [2, 2, 2, 2],  # Piece 2
+        [3, 3, 3, 3]   # Piece 3
+    ])
+    labels = ['Empty', 'Piece1', 'Piece2', 'Piece3']
+
+    # Entraîner le KNN
+    knn_model = train_knn(pieces, labels)
+
+    # Simuler un vecteur image qui est proche d'une pièce
+    image_vector = np.array([1.1, 1.1, 1.1, 1.1])
+
+    # Prédiction avec un seuil pour la distance "Empty"
+    predicted_label, distance = predict_with_threshold(knn_model, image_vector, max_empty_distance=0.5)
+
+    # Vérifier que le modèle prédit correctement "Piece1" (car proche de [1, 1, 1, 1])
+    assert predicted_label == 'Piece1'
+    assert distance < 1.0  # Vérifier que la distance est petite (car proche de "Piece1")
+
+def test_predict_with_threshold_empty():
+    # Simuler des données pour entraîner le modèle
+    pieces = np.array([
+        [0, 0, 0, 0],  # Empty
+        [1, 1, 1, 1],  # Piece 1
+        [2, 2, 2, 2],  # Piece 2
+        [3, 3, 3, 3]   # Piece 3
+    ])
+    labels = ['Empty', 'Piece1', 'Piece2', 'Piece3']
+
+    # Entraîner le KNN
+    knn_model = train_knn(pieces, labels)
+
+    # Simuler un vecteur image qui est proche de "Empty"
+    image_vector = np.array([0.1, 0.1, 0.1, 0.1])
+
+    # Prédiction avec un seuil pour la distance "Empty"
+    predicted_label, distance = predict_with_threshold(knn_model, image_vector, max_empty_distance=0.5)
+
+    # Vérifier que le modèle prédit "Empty" (car proche de [0, 0, 0, 0])
+    assert predicted_label == 'Empty'
+    assert distance < 1.0  # Vérifier que la distance est petite (car proche de "Empty")
+
+def test_predict_with_threshold_empty_over_threshold():
+    # Simuler des données pour entraîner le modèle
+    pieces = np.array([
+        [0, 0, 0, 0],  # Empty
+        [1, 1, 1, 1],  # Piece 1
+        [2, 2, 2, 2],  # Piece 2
+        [3, 3, 3, 3]   # Piece 3
+    ])
+    labels = ['Empty', 'Piece1', 'Piece2', 'Piece3']
+
+    # Entraîner le KNN
+    knn_model = train_knn(pieces, labels)
+
+    # Simuler un vecteur image loin de "Empty" mais identifié comme "Empty" au départ
+    image_vector = np.array([5.0, 5.0, 5.0, 5.0])
+
+    # Prédiction avec un seuil pour la distance "Empty"
+    predicted_label, distance = predict_with_threshold(knn_model, image_vector, max_empty_distance=0.5)
+
+    # Puisque la distance à "Empty" est supérieure au seuil, vérifier qu'il ne prédit pas "Empty"
+    assert predicted_label != 'Empty'
+    assert distance > 0.5  # La distance est grande, donc au-dessus du seuil
