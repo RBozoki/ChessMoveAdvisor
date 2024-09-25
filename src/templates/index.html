@@ -5,53 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Move Advisor</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="container">
     <header>
-        <p>Chess Move Advisor</p>
+        <div class="section_container">
+            <p>Chess Move Advisor</p>
+        </div>
     </header>
+
     <section>
-        <form action="/process" method="POST" enctype="multipart/form-data">
-            <label for="image">Télécharger une image du plateau :</label>
-            <input type="file" id="image" name="image" accept="image/*" required><br><br>
+        <div id="form_container" class="section_container">
+            <form action="/process" method="POST" enctype="multipart/form-data">
+                <label for="image">Télécharger une image du plateau :</label>
+                <input type="file" id="image" name="image" accept="image/*" required><br><br>
 
-            <label for="turn">Tour : Blanc</label>
-            <label class="switch">
-                <input type="checkbox" id="turn" name="turn" value="w">
-                <span class="slider round"></span>
-            </label>
-            <label for="turn">Noir</label><br><br>
+                <label for="turn">Tour : Blanc</label>
+                <label class="switch">
+                    <input type="checkbox" id="turn" name="turn" value="w">
+                    <span class="slider round"></span>
+                </label>
+                <label for="turn">Noir</label><br><br>
 
-            <label for="white_king_castling">Roque Roi Blanc</label>
-            <label class="switch">
-                <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
-                <span class="slider round"></span>
-            </label><br><br>
+                <label for="white_king_castling">Roque Roi Blanc</label>
+                <label class="switch">
+                    <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
+                    <span class="slider round"></span>
+                </label><br><br>
 
-            <label for="white_queen_castling">Roque Dame Blanc</label>
-            <label class="switch">
-                <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
-                <span class="slider round"></span>
-            </label><br><br>
+                <label for="white_queen_castling">Roque Dame Blanc</label>
+                <label class="switch">
+                    <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
+                    <span class="slider round"></span>
+                </label><br><br>
 
-            <label for="black_king_castling">Roque Roi Noir</label>
-            <label class="switch">
-                <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
-                <span class="slider round"></span>
-            </label><br><br>
+                <label for="black_king_castling">Roque Roi Noir</label>
+                <label class="switch">
+                    <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
+                    <span class="slider round"></span>
+                </label><br><br>
 
-            <label for="black_queen_castling">Roque Dame Noir</label>
-            <label class="switch">
-                <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
-                <span class="slider round"></span>
-            </label><br><br>
+                <label for="black_queen_castling">Roque Dame Noir</label>
+                <label class="switch">
+                    <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
+                    <span class="slider round"></span>
+                </label><br><br>
 
-            <input type="submit" value="Envoyer">
-        </form>
+                <input type="submit" value="Envoyer">
+            </form>
+        </div>
     </section>
     <footer>
-        <p>Hello</p>
+        <div class="section_container">
+            <p>Hello</p>
+        </div>
     </footer>
+    </div>
 </body>
 </html>

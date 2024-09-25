@@ -1,3 +1,47 @@
+body {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 500;
+
+  background: #74ebd5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.section_container {
+    display: flex;
+    justify-content: center;
+}
+
+header {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+#form_container {
+    background-color: white;
+    width: max-content;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
 .switch {
     position: relative;
     display: inline-block;
