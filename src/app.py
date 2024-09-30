@@ -54,7 +54,7 @@ def process():
         # Évaluer le meilleur coup
         best_move_result = best_move(fen, turn, white_king_castling, white_queen_castling, black_king_castling, black_queen_castling)
 
-        return f"Best move: {best_move_result}"
+        return render_template('result.html', best_move=best_move_result)
 
     return "Fichier non supporté", 400
 
