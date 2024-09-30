@@ -41,7 +41,7 @@ def process():
         file.save(file_path)
 
         # Obtenir les autres paramètres du formulaire
-        turn = 'b' if 'turn' in request.form else 'w'
+        turn = request.form.get('turn', 'w')
         white_king_castling = 'white_king_castling' in request.form
         white_queen_castling = 'white_queen_castling' in request.form
         black_king_castling = 'black_king_castling' in request.form
