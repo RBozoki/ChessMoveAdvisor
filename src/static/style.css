@@ -39,9 +39,22 @@ section {
 }
 
 
+#inputs_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+}
 
 
+.switch_with_label {
+    display: flex;
+    align-items: center;
+}
 
+.switch_with_label label:first-of-type {
+    margin-right: 10px;
+}
 
 .switch {
     position: relative;

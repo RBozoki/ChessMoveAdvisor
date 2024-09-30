@@ -22,40 +22,55 @@
     <section>
         <div id="form_container" class="section_container">
             <form action="/process" method="POST" enctype="multipart/form-data">
-                <label for="image">Upload a board image:</label>
-                <input type="file" id="image" name="image" accept="image/*" required><br><br>
+                <div id="inputs_container">
+                    <div class="switch_with_label">
+                        <label for="image">Upload a board image:</label>
+                        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+                    </div>
 
-                <label for="turn">Turn:</label>
-                <select id="turn" name="turn" required>
-                    <option value="w">White</option>
-                    <option value="b">Black</option>
-                </select><br><br>
+                    <div class="switch_with_label">
+                        <label for="turn">Turn:</label>
+                        <select id="turn" name="turn" required>
+                            <option value="w">White</option>
+                            <option value="b">Black</option>
+                        </select><br><br>
+                    </div>
 
-                <label for="white_king_castling">White King Castling</label>
-                <label class="switch">
-                    <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
-                    <span class="slider round"></span>
-                </label><br><br>
+                    <div class="switch_with_label">
+                        <label for="white_king_castling">White King Castling</label>
+                        <label class="switch">
+                            <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
+                            <span class="slider round"></span>
+                        </label><br><br>
+                    </div>
 
-                <label for="white_queen_castling">White Queen Castling</label>
-                <label class="switch">
-                    <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
-                    <span class="slider round"></span>
-                </label><br><br>
 
-                <label for="black_king_castling">Black King Castling</label>
-                <label class="switch">
-                    <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
-                    <span class="slider round"></span>
-                </label><br><br>
+                    <div class="switch_with_label">
+                        <label for="white_queen_castling">White Queen Castling</label>
+                        <label class="switch">
+                            <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
+                            <span class="slider round"></span>
+                        </label><br><br>
+                    </div>
 
-                <label for="black_queen_castling">Black Queen Castling</label>
-                <label class="switch">
-                    <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
-                    <span class="slider round"></span>
-                </label><br><br>
+                    <div class="switch_with_label">
+                        <label for="black_king_castling">Black King Castling</label>
+                        <label class="switch">
+                            <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
+                            <span class="slider round"></span>
+                        </label><br><br>
+                    </div>
 
-                <input type="submit" value="Envoyer">
+                    <div class="switch_with_label">
+                        <label for="black_queen_castling">Black Queen Castling</label>
+                        <label class="switch">
+                            <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
+                            <span class="slider round"></span>
+                        </label><br><br>
+                    </div>
+
+                    <input type="submit" value="Envoyer">
+                </div>
             </form>
         </div>
     </section>
