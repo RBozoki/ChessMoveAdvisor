@@ -10,9 +10,13 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<header>
+    <div class="section_container">
+        <p>Chess Move Advisor</p>
+    </div>
+</header>
 <body>
     <div class="container">
-        <h1>Best Chess Move</h1>
         <div class="result-box">
             <p><strong>Best move:</strong> {{ best_move }}</p>
         </div>
