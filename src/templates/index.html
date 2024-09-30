@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,34 +22,34 @@
     <section>
         <div id="form_container" class="section_container">
             <form action="/process" method="POST" enctype="multipart/form-data">
-                <label for="image">Télécharger une image du plateau :</label>
+                <label for="image">Upload a board image:</label>
                 <input type="file" id="image" name="image" accept="image/*" required><br><br>
 
-                <label for="turn">Tour :</label>
+                <label for="turn">Turn:</label>
                 <select id="turn" name="turn" required>
-                    <option value="w">Blanc</option>
-                    <option value="b">Noir</option>
+                    <option value="w">White</option>
+                    <option value="b">Black</option>
                 </select><br><br>
 
-                <label for="white_king_castling">Roque Roi Blanc</label>
+                <label for="white_king_castling">White King Castling</label>
                 <label class="switch">
                     <input type="checkbox" id="white_king_castling" name="white_king_castling" value="y">
                     <span class="slider round"></span>
                 </label><br><br>
 
-                <label for="white_queen_castling">Roque Dame Blanc</label>
+                <label for="white_queen_castling">White Queen Castling</label>
                 <label class="switch">
                     <input type="checkbox" id="white_queen_castling" name="white_queen_castling" value="y">
                     <span class="slider round"></span>
                 </label><br><br>
 
-                <label for="black_king_castling">Roque Roi Noir</label>
+                <label for="black_king_castling">Black King Castling</label>
                 <label class="switch">
                     <input type="checkbox" id="black_king_castling" name="black_king_castling" value="y">
                     <span class="slider round"></span>
                 </label><br><br>
 
-                <label for="black_queen_castling">Roque Dame Noir</label>
+                <label for="black_queen_castling">Black Queen Castling</label>
                 <label class="switch">
                     <input type="checkbox" id="black_queen_castling" name="black_queen_castling" value="y">
                     <span class="slider round"></span>
