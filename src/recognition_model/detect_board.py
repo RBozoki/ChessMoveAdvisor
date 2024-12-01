@@ -2,6 +2,9 @@ import cv2
 import numpy as np
 
 import os
+
+from matplotlib import pyplot as plt
+
 os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 
@@ -9,11 +12,12 @@ def detect_board_with_debug(image_path):
     # Charger l'image et la convertir en niveaux de gris
     image = cv2.imread(image_path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #cv2.imshow("image", gray)
+    gray = cv2.GaussianBlur(gray, (5, 5), 0)
 
     # Étape 1 : Détecter les bords
-    edges = cv2.Canny(gray, 30, 90, apertureSize=3)
-    cv2.imshow("Bords détectés (Canny)", edges)
+    edges = cv2.Canny(gray, 70, 180, apertureSize=3)
+    plt.imshow(edges, cmap='gray')
+    plt.show()
 
     # Étape 2 : Détection de lignes avec la transformation de Hough
     lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
