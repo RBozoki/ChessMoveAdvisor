@@ -70,9 +70,10 @@ def detect_board_with_debug(image_path):
     # Sélectionner les 4 coins extrêmes
     intersections = np.array(intersections)
     top_left = intersections[np.argmin(intersections[:, 0] + intersections[:, 1])]
-    top_right = intersections[np.argmin(intersections[:, 1] - intersections[:, 0])]
-    bottom_left = intersections[np.argmax(intersections[:, 0] - intersections[:, 1])]
+    top_right = intersections[np.argmax(intersections[:, 0] - intersections[:, 1])]
     bottom_right = intersections[np.argmax(intersections[:, 0] + intersections[:, 1])]
+    bottom_left = intersections[np.argmin(intersections[:, 0] - intersections[:, 1])]
+
 
     corners = [tuple(top_left), tuple(top_right), tuple(bottom_left), tuple(bottom_right)]
 
@@ -83,30 +84,29 @@ def detect_board_with_debug(image_path):
     for point in corners:
         cv2.circle(corners_image, (point[0], point[1]), 10, (0, 0, 255), -1)
 
-    plt.imshow(corners_image, cmap='gray')
-    plt.show()
+    #plt.imshow(corners_image, cmap='gray')
+    #plt.show()
 
 
     # Étape 5 : Transformation perspective
-    ordered_points = np.float32([
-        intersections[0],  # Haut-gauche
-        intersections[1],  # Haut-droit
-        intersections[2],  # Bas-gauche
-        intersections[3]   # Bas-droit
-    ])
+    ordered_points = np.float32(corners)  # Coins détectés (ordre haut-gauche, haut-droit, bas-gauche, bas-droit)
     target_points = np.float32([
         [0, 0],
         [400, 0],
         [0, 400],
         [400, 400]
-    ])
+    ])  # Grille cible de 400x400 pixels
+
+    # Calcul de la matrice de transformation
     matrix = cv2.getPerspectiveTransform(ordered_points, target_points)
     board_warped = cv2.warpPerspective(image, matrix, (400, 400))
-    #plt.imshow(board_warped, cmap='gray')
-    #plt.show()
+
+    # Afficher le plateau redressé
+    plt.imshow(cv2.cvtColor(board_warped, cv2.COLOR_BGR2RGB))
+    plt.show()
 
     return board_warped
 # Utilisation
-image_path = "./../../cog_data/train/0008.png"  # Remplace par le chemin de ton image
+image_path = "./../../cog_data/train/0020.png"  # Remplace par le chemin de ton image
 board = detect_board_with_debug(image_path)
 
