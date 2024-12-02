@@ -1,8 +1,6 @@
 Deep Learning Project: Chess Move Prediction
 
 Author: Raphaël Bozoki
-Advisor: [Advisor's Name]
-Description
 
 This project aims to provide an application that identifies the best chess move in a given position. Users can upload an image of a chessboard, and the application returns the optimal move based on automated analysis.
 Roadmap
