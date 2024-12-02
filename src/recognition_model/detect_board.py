@@ -17,7 +17,7 @@ def detect_board(image_path):
     # Étape 1 : Détecter les bords
     edges = cv2.Canny(gray, 70, 180, apertureSize=3)
     plt.imshow(edges, cmap='gray')
-    #plt.show()
+    plt.show()
 
     # Étape 2 : Détection de lignes avec la transformation de Hough
     lines = cv2.HoughLines(edges, 1, np.pi / 180, 90)
@@ -81,6 +81,8 @@ def detect_board(image_path):
         bottom_right[0] = bottom_left[0] + width * 2.5
         top_right[0] = top_left[0] + width * 1.5
 
+    bottom_right[1] -= 30
+
 
     corners = [tuple(top_left), tuple(top_right), tuple(bottom_left), tuple(bottom_right)]
 
@@ -109,13 +111,13 @@ def detect_board(image_path):
     board_warped = cv2.warpPerspective(image, matrix, (400, 400))
 
     # Afficher le plateau redressé
-    plt.imshow(cv2.cvtColor(board_warped, cv2.COLOR_BGR2RGB))
-    plt.show()
+    #plt.imshow(cv2.cvtColor(board_warped, cv2.COLOR_BGR2RGB))
+    #plt.show()
 
     return board_warped
 
 # Utilisation
-"""
-image_path = "./../../cog_data/train/0020.png"  # Remplace par le chemin de ton image
+
+image_path = "./../../cog_data/train/0008.png"  # Remplace par le chemin de ton image
 board = detect_board(image_path)
-"""
+
