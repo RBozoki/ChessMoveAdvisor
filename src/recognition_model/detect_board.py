@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 
-def detect_board_with_debug(image_path):
+def detect_board(image_path):
     # Charger l'image et la convertir en niveaux de gris
     image = cv2.imread(image_path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -74,6 +74,13 @@ def detect_board_with_debug(image_path):
     bottom_right = intersections[np.argmax(intersections[:, 0] + intersections[:, 1])]
     bottom_left = intersections[np.argmin(intersections[:, 0] - intersections[:, 1])]
 
+    height = bottom_left[1] - top_left[1]
+    width = bottom_right[0] - bottom_left[0]
+
+    if height > width:
+        bottom_right[0] = bottom_left[0] + width * 2.5
+        top_right[0] = top_left[0] + width * 1.5
+
 
     corners = [tuple(top_left), tuple(top_right), tuple(bottom_left), tuple(bottom_right)]
 
@@ -106,7 +113,9 @@ def detect_board_with_debug(image_path):
     plt.show()
 
     return board_warped
-# Utilisation
-image_path = "./../../cog_data/train/0020.png"  # Remplace par le chemin de ton image
-board = detect_board_with_debug(image_path)
 
+# Utilisation
+"""
+image_path = "./../../cog_data/train/0020.png"  # Remplace par le chemin de ton image
+board = detect_board(image_path)
+"""
